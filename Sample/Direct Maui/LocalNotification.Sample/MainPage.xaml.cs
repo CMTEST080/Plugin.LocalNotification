@@ -26,9 +26,9 @@ public partial class MainPage : ContentPage
         NotifyDatePicker.MinimumDate = DateTime.Today;
         NotifyTimePicker.Time = DateTime.Now.TimeOfDay.Add(TimeSpan.FromSeconds(10));
 
-        //ScheduleNotificationGroup();
-        //ScheduleNotification("first", 10);
-        //ScheduleNotification("second", 20);
+        ScheduleNotificationGroup();
+        ScheduleNotification("first", 10);
+        ScheduleNotification("second", 20);
 
         _cacheFilePath = FileSystem.Current.CacheDirectory + $"/testFile.txt";
 
@@ -156,7 +156,7 @@ public partial class MainPage : ContentPage
         }
 
         // if not specified, notification will show immediately.
-        if (UseNotifyTimeSwitch.IsToggled)
+        // if (UseNotifyTimeSwitch.IsToggled)
         {
             var notifyDateTime = NotifyDatePicker.Date.Add(NotifyTimePicker.Time);
             if (notifyDateTime <= DateTime.Now)
@@ -165,11 +165,12 @@ public partial class MainPage : ContentPage
             }
             //var notifyDateTime = DateTime.Now.AddSeconds(30);
 
-            request.Schedule.NotifyAutoCancelTime = DateTime.Now.AddMinutes(5);
+            //request.Schedule.NotifyAutoCancelTime = DateTime.Now.AddMinutes(5);
             request.Schedule.NotifyTime = notifyDateTime;
             //request.Schedule.RepeatType = RepeatSwitch.IsToggled ? NotificationRepeat.Daily : NotificationRepeat.No;
-            //request.Schedule.RepeatType = NotificationRepeat.TimeInterval;
-            //request.Schedule.NotifyRepeatInterval = TimeSpan.FromMinutes(2);
+            request.Schedule.RepeatType = NotificationRepeat.Daily;
+            // request.Schedule.RepeatType = NotificationRepeat.TimeInterval;
+            // request.Schedule.NotifyRepeatInterval = TimeSpan.FromMinutes(2);
         }
 
         try
@@ -313,7 +314,7 @@ public partial class MainPage : ContentPage
             Schedule =
                 {
                     NotifyTime = DateTime.Now.AddSeconds(seconds),
-                    RepeatType = NotificationRepeat.TimeInterval,
+                    RepeatType = NotificationRepeat.Daily,
                     NotifyRepeatInterval = TimeSpan.FromSeconds(10),
                 }
         };
